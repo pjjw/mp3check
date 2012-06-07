@@ -1,0 +1,2 @@
+TARGET=mp3check
+SHARED_FILES=INSTALL COPYING Makefile configure tappconfig.cc tappconfig.h tstring.cc tstring.h texception.h tmap.h tvector.h tregex.cc tregex.h tfiletools.h tfiletools.cc

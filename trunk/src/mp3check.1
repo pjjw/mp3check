@@ -1,0 +1,239 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH MP3CHECK 1 "March  1, 2001"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+mp3check \- check mp3 files for consistency
+.SH SYNOPSIS
+.B mp3check
+[\-03ABCEFGIKLMNPRSTWYZabcdefghlmopqrst]  [\-\-accept=LIST] [\-\-alt-color] [\-\-anomaly-check] [\-\-anomaly-check]
+[\-\-any-bitrate] [\-\-any\-crc] [\-\-any\-emphasis] [\-\-any-layer] [\-\-any-mode] 
+[\-\-any-sampling] [\-\-any\-version] [\-\-ascii\-only] [\-\-color] [\-\-compact-list] [\-\-cut-junk-end] 
+[\-\-cut-junk-start] [\-\-cut-tag-end] [\-\-dummy] [\-\-dump\-tag] [\-\-dump-header] [\-\-dump-tag] [\-\-edit\-frame\-byte=P]
+[\-\-error-check] [\-\-error\-check] [\-\-filelist=FILE] [\-\-fix-crc] [\-\-fix-headers] [\-\-help] 
+[\-\-ign-bitrate-sw] [\-\-ign\-constant\-sw] [\-\-ign\-crc\-error] [\-\-ign-junk-end] 
+[\-\-ign-junk-start] [\-\-ign\-non\-ampeg] [\-\-ign\-resync] [\-\-ign-tag128] 
+[\-\-ign-truncated] [\-\-list] [\-\-log-file=FILE] [\-\-max-errors=NUM] [\-\-only\-mp3] [\-\-print\-files] [\-\-progress]
+[\-\-quiet] [\-\-raw\-elem\-sep=NUM] [\-\-raw\-line\-sep=NUM] [\-\-raw-list] [\-\-recursive] [\-\-reject=LIST] [\-\-show\-valid]
+[\-\-single-line]
+[\-\-version] [\-\-xdev] [\-\-] [FILES...]
+.br
+.SH DESCRIPTION
+This manual page documents briefly the
+.B mp3check
+command.
+This manual page was written for the Debian GNU/Linux distribution
+because the original program does not have a manual page.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invoke bold face and italics, 
+.\" respectively.
+\fBmp3check\fP is a program that checks mp3 files for consistency and 
+prints several errors and warnings. It lists stream attributes (color). 
+Layer 1,2,3, mpeg1.0+2.0 are currently supported. CRC check for layer 3.
+\fBmp3check\fP is very useful for incomplete mp3 detection as it can be 
+used to scan through your mp3 collection and find all mp3s that aren't 
+perfect. Good for use with Napster and other bulk downloading of mp3s.
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-'). Options can be specified in any order and mixed with files. Option scanning stops
+after a double dash (\-\-) to allow files beginning with a dash.
+A summary of options is included below.
+.TP
+\fBmode:\fP
+.TP
+.B \-l \-\-list              
+list parameters by examining the first valid header and size
+.TP
+.B \-c \-\-compact-list      
+list parameters of one file per line in a very compact format: 
+version (l=1.0, L=2.0), layer, sampling frequency [kHz] (44=44.1), 
+bitrate [kbit/s], mode (js=joint stereo, st=stereo, sc=single channel, 
+dc=dual channel), emphasis (n=none, 5=50/15 usecs, J=CCITT J.17), 
+COY (has [C]rc, [O]riginal, cop[Y]right), length [min:sec], filename 
+(poss. truncated)
+.TP
+.B \-e \-\-error-check       
+check crc and headers for consistency and print several error messages
+.TP
+.B \-m \-\-max-errors=<int>  
+with -e: set maximum number of errors to print per file (0==infinity) 
+(range=[0..])
+.TP
+.B \-a \-\-anomaly-check     
+report all differences from these parameters: layer 3, 44.1kHz, 
+128kbps, joint stereo, no emphasis, has crc
+.TP
+.B \-d \-\-dump-header       
+dump all possible header with sync=0xfff
+.TP
+.B \-t \-\-dump-tag
+dump all possible tags of known version
+.TP
+.B \-\-raw-list          
+list parameters in raw output format for use with external programs
+.TP
+.B \-\-raw-elem-sep=NUM  
+separate elements in one line by char NUM (numerical ASCII code) 
+(default="0x09")
+.TP
+.B \-\-raw-line-sep=NUM  
+separate lines by char NUM (numerical ASCII code) (default="0x0a")
+.TP
+.B \-\-edit\-frame\-byte=P  
+modify a single byte of a specific frame at a specific offset; B has the format 'frame,offset,byteval', (use 0xff for hex or 255 for dec or 0377 for octal); this
+mode operates on all given files and is useful for your own experiment with broken streams or while testing this toll ;-)
+.TP
+\fBfix errors:\fP
+.TP
+.B \-\-cut-junk-start    
+remove junk before first frame
+.TP
+.B \-\-cut-junk-end      
+remove junk after last frame
+.TP
+.B \-\-fix-headers       
+fix invalid headers (prevent constant parameter switching), 
+implies -e, use with care
+.TP
+.B \-\-fix-crc           
+fix crc (set crc to the calculated one), implies -e, use with 
+care (note: it is not possible to add crc to files which have 
+been created without crc)
+.TP
+\fBdisable error messages for -e --error-check:\fP
+.TP
+.B \-G \-\-ign-tag128        
+ignore 128 byte TAG after last frame
+.B \-R \-\-ign-resync        
+ignore invalid frame header
+.TP
+.B \-E \-\-ign-junk-end      
+ignore junk after last frame
+.TP
+.B \-Z \-\-ign-crc-error     
+ignore crc errors
+.TP
+.B \-N \-\-ign-non-ampeg     
+ignore non audio mpeg streams
+.TP
+.B \-T \-\-ign-truncated     
+ignore truncated last frames
+.TP
+.B \-S \-\-ign-junk-start    
+ignore junk before first frame
+.TP
+.B \-B \-\-ign-bitrate-sw    
+ignore bitrate switching and enable VBR support
+.TP
+.B \-W \-\-ign-constant-sw   
+ignore switching of constant parameters, such as sampling frequency
+.TP
+.B \-\-show\-valid
+print the message 'valid audio mpeg stream' for all files which error free (after ignoring errors)
+.TP
+\fBdisable anomaly messages for -a --anomaly-check:\fP
+.TP
+.B \-C \-\-any-crc           
+ignore crc anomalies
+.TP
+.B \-M \-\-any-mode          
+ignore mode anomalies
+.TP
+.B \-L \-\-any-layer         
+ignore layer anomalies
+.TP
+.B \-K \-\-any-bitrate       
+ignore bitrate anomalies
+.TP
+.B \-I \-\-any-version       
+ignore version anomalies
+.TP
+.B \-F \-\-any-sampling      
+ignore sampling frequency anomalies
+.TP
+.B \-P \-\-any-emphasis      
+ignore emphasis anomalies
+.TP
+\fBfile options:\fP
+.TP
+.B \-r \-\-recursive        
+process any given directories recursively (the default is to ignore all directories specified on the command line)
+.TP
+.B \-f \-\-filelist=FILE    
+process all files specified in FILE (one filename per line) in addition to the command line
+.TP
+.B \-A \-\-accept=LIST      
+process only files with filename extensions specified by comma separated LIST
+.TP
+.B \-R \-\-reject=LIST      
+do not process files with a filename extension specified by comma separated LIST
+.TP
+.B \-3 \-\-only-mp3         
+same as 
+.B \-\-accept mp3,MP3
+.TP
+.B \-\-xdev
+do not descend into other filesystems when recursing directories (doesn't work in Cygwin environment)
+.TP
+.B \-\-print\-files      
+just print all filenames without processing them, then exit      
+.TP
+\fBoutput options:\fP
+.TP
+.B \-s \-\-single-line       
+print one line per file and message instead of splitting 
+into several lines
+.TP
+.B \-\-no\-summary
+suppress the summary printed below all messages if multiple files are given
+.TP
+.B \-g \-\-log-file=FILE     
+print names of erroneous files to FILE, one per line
+.TP
+.B \-q \-\-quiet             
+quiet mode, hide messages about directories, non-regular or 
+non-existing files
+.TP
+.B \-o \-\-color             
+colorize output with ANSI sequences
+.TP
+.B \-b \-\-alt-color         
+colorize: do not use bold ANSI sequences
+.TP
+.B \-\-ascii-only
+generally all unprintable characters in filenames etc are replaced by '!' (ASCII 0-31) and '?' (ASCII 127-159), with this option present the range 
+ASCII 160-255 (which is usually printable: e.g. ISO-8859) is also printed as '?'
+.TP
+.B \-p \-\-progress          
+show progress information on stderr
+.TP
+\fBcommon options:\fB
+.TP
+.B \-0 \-\-dummy             
+do not write/modify anything other than the logfile
+.TP
+.B \-h \-\-help              
+print this help message, then exit successfully
+.TP
+.B \-\-version           
+print version, then exit successfully
+.SH AUTHOR
+This original manual page was written by Klaus Kettner <kk@debian.org>,
+for the Debian GNU/Linux system. The current version of this manpage is 
+maintained by Johannes Overmann <overmann@iname.com>, the author of 
+mp3check.
+
