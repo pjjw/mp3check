@@ -1,0 +1,5 @@
+#!/bin/sh
+eval `grep ^TARGET TARGET`
+echo Configuring $TARGET ...
+echo done
+
