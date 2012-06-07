@@ -50,7 +50,11 @@ clean:
 
 svnclean: clean
 
-.PHONY: default all clean strip dist svnclean install usage
+mantxt: 
+	nroff -c -man mp3check.1 | sed 's/.'$(shell echo -e '\010')'//g' > mp3check-man.txt
+
+
+.PHONY: default all clean strip dist svnclean install usage mantxt
 
 # --- meta object compiler for qt -------------------------------------------
 moc_%.cc: %.h
